@@ -18,10 +18,54 @@ body {
     }
 }
 
+/* Posts */
 .post {
     background-color: #e9e9e9;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 0.25rem solid #ddd;
     border-radius: 5px;
+}
+
+/* Comments */
+#comments {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.comment, .reply{
+    position: relative;
+    z-index: 1;
+    color: white;
+    background-color: #222222;
+    border: 0.25rem solid red;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.comment:not(:last-child), .reply:not(:last-child) {
+    /* Styles for all but the last comment */
+    margin-bottom: 1rem;
+}
+
+.comment.no-replies:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 100%; /* Position at the bottom of the comment */
+    left: 1rem;
+    width: 0.25rem;
+    height: 1.5rem; /* Adjust this for the length of the line */
+    background-color: red; /* Line color */
+}
+
+.reply::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -1.5rem;
+    left: 1rem;
+    width: 0.25rem;
+    height: 1.5rem;
+    background-color: red; /* Set the line color */
 }
