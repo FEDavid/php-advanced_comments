@@ -1,71 +1,162 @@
-/* CSS Reset */
+/* # CSS Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Rest of the code */
-body {
-    padding: 1rem;
+:root {
+    --cstm-border-width: 0.1rem;
+    --cstm-spacing: 1rem;
+    --cstm-reply-line-sizing: calc(var(--cstm-spacing) + var(--cstm-border-width));
+
+    /* Custom colors */
+    --cstm-theme-60: #cc33ff;
+    --cstm-theme-55: #c61aff;
+    --cstm-theme-50: #bf00ff;
+    --cstm-theme-45: #ac00e6;
+    --cstm-theme-40: #9900cc;
+    --cstm-theme-35: #8600b3;
+    --cstm-theme-30: #730099;
+    --cstm-theme-25: #600080;
+    --cstm-theme-20: #4d0066;
+    --cstm-theme-15: #39004d;
+    --cstm-theme-10: #260033;
+    --cstm-theme-5: #13001a;
 }
 
-#posts, #title, #users{
-    margin-bottom: 1rem;
+/* Rest of the code */
+body {
+    background-color: #111;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: grid;
+    place-items: center;
+}
 
-    h1{
-        margin-bottom: 0.5rem;
-    }
+hr {
+    margin-top: calc(var(--cstm-spacing) / 2);
+    color: white;
+}
+
+#container {
+    padding: var(--cstm-spacing);
+    min-width: 400px;
+    max-width: 800px;
+}
+
+#title {
+    margin-bottom: calc(var(--cstm-spacing)*2);
+}
+
+h1 {
+    margin-bottom: calc(var(--cstm-spacing) / 2);
+}
+
+#codeblock{
+    background-color: var(--cstm-theme-5);
+    border: var(--cstm-border-width) solid var(--cstm-theme-60);
+    padding: var(--cstm-spacing);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: calc(var(--cstm-spacing)*2);
 }
 
 /* Posts */
+#posts{
+    display: grid;
+    gap: calc(var(--cstm-spacing) * 2);
+}
+
 .post {
-    background-color: #e9e9e9;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border: 0.25rem solid #ddd;
+    display: grid;
+    padding: var(--cstm-spacing);
+    border: var(--cstm-border-width) solid var(--cstm-theme-60);
+    border-radius: 0.25rem;
+    background: linear-gradient(to bottom, var(--cstm-theme-20), var(--cstm-theme-15));
+}
+
+.post_title {
+    margin-top: calc(calc(var(--cstm-spacing) / 2) * -1);
+    color: white;
+    font-size: 2rem;
+}
+
+.post_content {
+    margin-top: var(--cstm-spacing);
+    background-color: var(--cstm-theme-5);
+    border: var(--cstm-border-width) solid var(--cstm-theme-60);
+    padding: var(--cstm-spacing);
     border-radius: 5px;
+}
+
+.post_author {
+    margin-top: calc(var(--cstm-spacing)/2);
+    color: white;
+    font-weight: bold;
+}
+
+.post_author::before {
+    content: "Posted by: ";
+    color: var(--cstm-theme-60);
 }
 
 /* Comments */
 #comments {
     position: relative;
-    margin-top: 1rem;
-}
-
-.comment, .reply{
-    position: relative;
-    z-index: 1;
-    color: white;
-    background-color: #222222;
-    border: 0.25rem solid red;
-    padding: 1rem;
+    margin-top: var(--cstm-spacing);
+    padding: var(--cstm-spacing);
+    background-color: var(--cstm-theme-5);
+    border: var(--cstm-border-width) solid var(--cstm-theme-60);
     border-radius: 5px;
 }
 
-.comment:not(:last-child), .reply:not(:last-child) {
-    /* Styles for all but the last comment */
-    margin-bottom: 1rem;
+.comment_title {
+    margin-top: var(--cstm-spacing);
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
-.comment.no-replies:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 100%; /* Position at the bottom of the comment */
-    left: 1rem;
-    width: 0.25rem;
-    height: 1.5rem; /* Adjust this for the length of the line */
-    background-color: red; /* Line color */
+.comment_title hr {
+    grid-column: 1 / span 2;
+}
+
+.comment-count {
+    text-align: right;
+}
+
+.comment{
+    background-color: var(--cstm-theme-15);
+}
+
+.reply:not(#codeblock){
+    background-color: var(--cstm-theme-10);
+}
+
+.comment,
+.reply {
+    position: relative;
+    z-index: 1;
+    color: white;
+    border: var(--cstm-border-width) solid var(--cstm-theme-60);
+    padding: var(--cstm-spacing);
+    border-radius: 5px;
+}
+
+.comment:not(:last-child),
+.reply:not(:last-child) {
+    /* Styles for all but the last comment */
+    margin-bottom: var(--cstm-spacing);
 }
 
 .reply::after {
     content: "";
     position: absolute;
     z-index: -1;
-    top: -1.5rem;
-    left: 1rem;
+    top: calc(var(--cstm-reply-line-sizing) * -1);
+    height: var(--cstm-reply-line-sizing);
+    left: var(--cstm-reply-line-sizing);
     width: 0.25rem;
-    height: 1.5rem;
-    background-color: red; /* Set the line color */
+    background-color: var(--cstm-theme-60);
 }
+
